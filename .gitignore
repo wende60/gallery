@@ -1,0 +1,5 @@
+# gitignore schwarz-weiss
+gfx
+php
+.sass-cache
+*.html

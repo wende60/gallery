@@ -1,0 +1,20 @@
+/* -----------------------------------------------
+        main container
+----------------------------------------------- */  
+/*
+    generate:
+    sass --style compact --line-numbers main.scss main.css
+    sass --style compressed main.scss main.css
+
+    watch
+    sass --style compact --line-numbers --watch main.scss main.css
+*/
+@import "scss/settings";
+@import "scss/mixins";
+@import "scss/extensions";
+@import "scss/redaxo";
+
+@import "scss/base";
+
+// at last the ie-fixes 
+@import "scss/iefix";

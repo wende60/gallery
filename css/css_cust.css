@@ -1,0 +1,90 @@
+/* -----------------------------------
+
+  content-gallery
+  
+----------------------------------- */
+
+#rex-output .gallery-thumblist {
+	padding: 0 20px 10px 20px;
+	min-height: 1px;
+	width: 540px;
+	zoom: 1;
+	overflow: hidden;
+}
+
+#rex-output .gallery-thumblist ul {
+    margin: 0;
+    padding: 0;
+    min-height: 1px;
+    list-style: none;
+}
+
+#rex-output .gallery-thumblist li {
+    float: left;
+    margin: 0 1px 1px 0;
+    list-style: none;
+    padding: 0;
+}
+
+#rex-output .gallery-thumblist li a {
+
+}
+
+.rex-area-home {
+    width: 400px;
+    height: 70px;
+}
+
+* html #rex-output .gallery-thumblist,
+* html #rex-output .gallery-thumblist ul {
+    height: 1px;
+}
+
+#rex-output .content-text *,
+#rex-output .content-text-image *,
+#rex-output .gallery-division  * {
+    margin: 10px 0 10px 0;
+    line-height: 150%;
+}
+
+/* -----------------------------------
+
+  forms
+  
+----------------------------------- */
+.entry-wrapper {
+    padding: 10px 0 20px 0;
+}
+
+div.rex-form div.rex-form-row h4,
+div.rex-form div.rex-form-row p {
+    padding: 0 0 6px 0;
+    margin: 0;
+}
+
+div.rex-form div.rex-form-row p textarea {
+    width: 90%;
+}
+
+div.rex-form div.rex-form-row p input.inp100 {
+    width: 90%;
+}
+
+
+/* -----------------------------------
+
+  image modules
+  
+----------------------------------- */
+#rex-output .image-wrapper img {
+    max-width: 250px;
+}
+
+/* -----------------------------------
+
+  tables
+  
+----------------------------------- */
+#rex-output td {
+    padding: 1px 10px 3px 10px;
+}

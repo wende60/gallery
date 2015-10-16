@@ -1,0 +1,37 @@
+
+    /* favourite mixins */
+
+    @mixin vendor($property, $value) {
+        -webkit-#{$property}: $value;
+        -moz-#{$property}: $value;
+        -ms-#{$property}: $value;
+        -o-#{$property}: $value;
+        #{$property}: $value;
+    }
+
+    @mixin clearafter() {
+        &:after {
+            content: ".";
+            clear: both;         
+            display: block;
+            height: 0;
+            visibility: hidden;
+            overflow: hidden;
+        }
+    }
+
+    @mixin box-shadow($shadows) {
+        -webkit-box-shadow: $shadows;
+           -moz-box-shadow: $shadows;
+                box-shadow: $shadows;
+    }
+
+    @mixin simple-linear-gradient($direction: top, $color1: $sx_gradient_color, $color2: $sx_main_color) {
+        background-color: $color1;
+        background: -webkit-linear-gradient($direction, $color1, $color2);
+        background:    -moz-linear-gradient($direction, $color1, $color2);
+        background:     -ms-linear-gradient($direction, $color1, $color2);
+        background:      -o-linear-gradient($direction, $color1, $color2);
+        background:         linear-gradient($direction, $color1, $color2);
+    }
+
