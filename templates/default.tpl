@@ -1,120 +1,99 @@
-<?php
+REX_TEMPLATE[2]
 
-    /**
-     * template schwarz-weiss gallery
-     * @author: jw
-     *
-     */
-    error_reporting(E_ALL);     
-     
-    $configTemplate = new rex_template(1);	
-    include $configTemplate->getFile();     
-     
-    $documentHeaderTemplate = new rex_template($document_header_tpl_id);	
-    include $documentHeaderTemplate->getFile();
+    <div id="static-wrapper">
+        <div class="gallery-toolbar">
+            <p title="Navigation anzeigen" class="gallery-button gallery-navi" onclick="gallery.toggle_navi()"><span>Navigation</span></p>
+        </div>
 
-?><body>
-    <div id="gallery-wrapper">
-        <div id="navi-wrapper">
-            <div class="navi-list-wrapper">
-                <?php
-                    $mainNaviTemplate = new rex_template($main_navi_tpl_id);	
-                    include $mainNaviTemplate->getFile();
-                ?>
+        <div class="gallery-division">
+            <div class="gallery-inner">
+                <?php echo $this->getArticle(1)?>
             </div>
-        </div> 
+        </div>
 
-        <div id="static-wrapper">
-            <div class="gallery-toolbar">
-                <p title="Navigation anzeigen" class="gallery-button gallery-navi" onclick="gallery.toggle_navi()"><span>Navigation</span></p>
-            </div> 
-        
-            <div class="gallery-division">
+        <?php if(REX_ARTICLE_ID === $formmailerArticleId) { ?>
+
+            <div class="gallery-division gallery-division-form">
                 <div class="gallery-inner">
-                    <?php echo $this->getArticle(1)?> 
-                </div>
-            </div> 
-            <?php if($article_id === $formmailer_article_id): ?>  
-                <div class="gallery-division gallery-division-form">
-                    <div class="gallery-inner">       
-                        <?php include $REX["INCLUDE_PATH"] . "/mail.inc.php" ?>                       
-                        <div class="gallery-contactform">
-                            <?php 
-                                # ---------------------------
-                                # uuups?
-                                # ---------------------------
-                                #
-                                if ($mail_error): 
-                            ?>
-                                <p class="error"><?=$mail_error?></p>
-                            <?php endif ?>
-                            <?php
-                                # ---------------------------
-                                # feddich?
-                                # ---------------------------
-                                #
-                                if ($complete):        
-                            ?>    
-                                <p class="message">###confirm###</p>                    
-                            <?php
-                                # ---------------------------
-                                # nich feddich?
-                                # ---------------------------
-                                #
-                                else:
-                            ?>
-                                <form action="<?php echo rex_getUrl($this->getValue("article_id"), $language_id); ?>" method="post" name="mailform">                 
+                    <?php
+                        $formmailer = new kgdeMail($formmailerEmailFrom, $formmailerEmailTo);
+                        $mailState  = $formmailer->getMailState();
+                    ?>
+                    <div class="gallery-contactform">
+                        <?php if ($mailState !== 'inital') { ?>
+                            <div class="messageContainer">
+                                <?php
+                                    # ---------------------------
+                                    # error?
+                                    # ---------------------------
+                                    if ($mailState === 'error') {
+                                ?>
+                                    <p class="error">
+                                        ###mailerror###<br>
+                                        <?php echo $formmailer->getError('<br>') ?>
+                                    </p>
+                                <?php } ?>
+                                <?php
+                                    # ---------------------------
+                                    # fish?
+                                    # ---------------------------
+                                    if ($mailState === 'fish') {
+                                ?>
+                                    <p class="message">###fish###</p>
+                                <?php } ?>
+                                <?php
+                                    # ---------------------------
+                                    # feddich?
+                                    # ---------------------------
+                                    if ($mailState === 'send') {
+                                ?>
+                                    <p class="message">###confirm###</p>
+                                <?php } ?>
+                            </div>
+                        <?php } #mailState ?>
+
+                        <?php if ($mailState === 'inital' || $mailState === 'error') { ?>
+                            <div class="kgde-contactform">
+                                <form action="<?php echo rex_getUrl(REX_ARTICLE_ID,REX_CLANG_ID) ?>" method="post" name="mailform">
                                     <p>
                                         <label>###firstname###</label>
-                                        <input type="text" name="firstname" value="<?=$firstname?>">
+                                        <input type="text" name="firstname" value="<?php echo $formmailer->getSentValue('firstname'); ?>">
                                     </p>
                                     <p>
-                                        <label>###lastname###</label>	
-                                        <input type="text" name="lastname" value="<?=$lastname?>" >
+                                        <label>###lastname###</label>
+                                        <input type="text" name="lastname" value="<?php echo $formmailer->getSentValue('lastname'); ?>" >
                                     </p>
                                     <p>
                                         <label>###email###</label>
-                                        <input type="text" name="email" value="<?=$email?>">
-                                    </p>                  
-                                    <p>   
+                                        <input type="text" name="email" value="<?php echo $formmailer->getSentValue('email'); ?>">
+                                    </p>
+                                    <p>
                                         <label>###message###</label>
-                                        <input class="customer" type="text" name="customer" value="<?=$customer?>">             
-                                        <textarea name="message"><?=$message?></textarea>
+                                        <input class="customer" type="text" name="customer" value="<?php echo $customer; ?>">
+                                        <textarea name="message"><?php echo $formmailer->getSentValue('message'); ?></textarea>
                                     </p>
                                     <p class="sender">
                                         <input class="sender" type="submit" value=" ###send### ">
-                                        <input type="hidden" name="is_send" value="1">                  
-                                    </p>                
-                                </form>	
-                            <?php
-                                # ---------------------------
-                                # end feddich!
-                                # ---------------------------
-                                #
-                                endif;
-                            ?>                 
-                        </div>
+                                        <input type="hidden" name="is_send" value="1">
+                                    </p>
+                                </form>
+                            </div>
+                        <?php } # nich feddich ?>
                     </div>
-                </div>                
-            <?php endif?>
-            <?php
-                $bottom_content =  $this->getArticle(2);
-                if($bottom_content) {
-            ?>
+                </div>
+            </div>
+        <?php } #formmailerArticleId ?>
+
+        <?php
+            $articleBottomContent = $this->getArticle(2);
+            if($articleBottomContent) {
+        ?>
             <div class="gallery-division">
                 <div class="gallery-inner">
-                    <?php echo $bottom_content?> 
+                    <?php echo $articleBottomContent?>
                 </div>
-            </div> 
-            <?php
-                }
-                #$bottom_content
-            ?>
-        </div>
+            </div>
+        <?php } ?>
     </div>
-    <?php
-        $documentFooterTemplate = new rex_template($document_footer_tpl_id);	
-        include $documentFooterTemplate->getFile();
-    ?>
-</body>
-</html>
+
+REX_TEMPLATE[3]
