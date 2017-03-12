@@ -2,22 +2,27 @@
     /* global settings */
 
     /* bg and border gray */
-    $mediumgray:    #999999;
-    $lightgray:     #b7b7b7;
-    $darkgray:      #7f7f7f;
+    $mediumgray:    #bcbcbc;
+    $lightgray:     #e5e5e5;
+    $darkgray:      #444444;
+    $bgViewImage:   #ffffff;
+    $bgFooter:      #444444;
     $msg-yellow:    #fccf6e;
-    
+
     /* bg and border light */
-    $colorlight:    #ffffff;    
-    
+    $colorlight:    #ffffff;
+
     /* font default */
     $font-dark:     #333333;
     $font-red:      #6a0000;
     $font-invert:   #ffffff;
+    $fontFooter:    #ffffff;
+
+    $weightFooter: 300;
 
 
-    
-    
+
+
     /* media queries */
     $bp-med:        "(max-width: 799px)";
     $bp-small:      "(max-width: 499px)";

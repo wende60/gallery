@@ -11,10 +11,13 @@
 */
 @import "scss/settings";
 @import "scss/mixins";
-@import "scss/extensions";
-@import "scss/redaxo";
 
 @import "scss/base";
+@import "scss/navi";
+@import "scss/gallery";
+@import "scss/toolbar";
+@import "scss/redaxo";
+@import "scss/form";
 
-// at last the ie-fixes
-@import "scss/iefix";
+
+

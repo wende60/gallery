@@ -94,6 +94,9 @@ REX_TEMPLATE[2]
                 </div>
             </div>
         <?php } ?>
+
+        REX_TEMPLATE[8]
+
     </div>
 
 REX_TEMPLATE[3]

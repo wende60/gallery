@@ -49,6 +49,8 @@
             hl: 2,
             loader: '../gfx/loader.gif',
             resizerun: false,
+            isSmallDevice: false,
+            smallDeviceMax: 500,
             testing: false
         },
 
@@ -56,9 +58,9 @@
         map: {},
 
         init: function() {
-
-            this.config.touchme =  'ontouchstart' in window;
-            this.config.pointme =  window.navigator.msPointerEnabled? true : false;
+            this.config.touchme = 'ontouchstart' in window;
+            this.config.pointme = window.navigator.msPointerEnabled? true : false;
+            this.config.isSmallDevice = this.detectSmallDevice();
 
             this.init_thumbs();
             this.bind_view_events();
@@ -81,6 +83,18 @@
             if(typeof escaped_fragment !== "undefined" && escaped_fragment) {
                 this.dpl_escaped_fragment();
             }
+        },
+
+        /**
+         * detect small viewport to load lowSrc images
+         * @author      kgde@wendenburg.de
+         * @return      {boolean}
+         */
+        detectSmallDevice: function() {
+            return (
+                $(window).width() < this.config.smallDeviceMax ||
+                $(window).height() < this.config.smallDeviceMax
+            ) ? true : false;
         },
 
         hashchange: function() {
@@ -106,7 +120,7 @@
                 var $img    =  $('img:first', $this);
                 var href    =  $a.attr('href');
                 var src     =  $img.attr('src');
-                var view    =  $img.data('view');
+                var view    =  obj.config.isSmallDevice ? $img.data('lowsrc') : $img.data('fullsrc');
                 var key     =  $img.data('key') || src.substr(kstart).replace('.jpg', '');
                 var kstart  =  (src.lastIndexOf('/') > 0)? src.lastIndexOf('/') +1 : 0;
                 var idx     =  obj.data.length;

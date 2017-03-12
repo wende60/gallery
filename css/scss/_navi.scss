@@ -1,0 +1,48 @@
+    /* ----------------------------------------
+        navi items
+    ---------------------------------------- */
+    #navi-wrapper {
+        width: 300px;
+        height: 100%;
+        position: absolute;
+        left: -300px;
+        top: 0;
+        overflow: auto;
+        background: $colorlight;
+        color: $font-dark;
+
+        ul, li {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        a {
+            color: $font-dark;
+            text-decoration: none;
+        }
+
+        @media #{$bp-small} {
+            width: 50%;
+            left: -50%;
+        }
+
+        .navi-list-wrapper {
+            padding: 6%;
+        }
+
+        .navi-list-wrapper > ul > li {
+            padding: 6px 0 6px 0;
+            border-bottom: 1px dashed $darkgray;
+        }
+
+        .navi-list-wrapper > ul > li.navi-gallery {
+            padding-left: 25px;
+            background: transparent url(../gfx/gallery.png) no-repeat left 50%;
+            border-bottom: 1px dashed $darkgray;
+        }
+
+        .navi-list-wrapper > ul > li.navi-top-sel a {
+            color: $font-red;
+        }
+    }
