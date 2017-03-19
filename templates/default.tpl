@@ -1,9 +1,7 @@
 REX_TEMPLATE[2]
 
     <div id="static-wrapper">
-        <div class="gallery-toolbar">
-            <p title="Navigation anzeigen" class="gallery-button gallery-navi" onclick="gallery.toggle_navi()"><span>Navigation</span></p>
-        </div>
+        REX_TEMPLATE[9]
 
         <div class="gallery-division">
             <div class="gallery-inner">

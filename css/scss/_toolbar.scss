@@ -1,6 +1,6 @@
 
     /* ----------------------------------------
-        toolbar
+        toolbar viewimage
     ---------------------------------------- */
     .gallery-toolbar {
         background: $colorlight;
@@ -50,14 +50,6 @@
         }
     }
 
-    #static-wrapper,
-    #fragment-wrapper,
-    #thumblist-wrapper {
-        .gallery-toolbar {
-            background: #ffffff url(../gfx/bg-navi.png) repeat 50% 50%;
-        }
-    }
-
     #viewimage-wrapper {
         .gallery-toolbar {
             position: absolute;
@@ -81,11 +73,4 @@
         }
     }
 
-    #static-wrapper,
-    #fragment-wrapper,
-    #thumblist-wrapper {
-        .gallery-toolbar {
-            text-align: left;
-        }
-    }
 
