@@ -397,11 +397,15 @@
             $('#thumblist-wrapper').scrollTop(0);
         },
 
-        toggle_navi: function() {
+        toggle_navi: function(el) {
             this.config.dpl_navi =  arguments.length? arguments[0] : (this.config.dpl_navi? false : true);
             if(this.config.dpl_navi) {
+                $('#hamburgerMenu').removeClass('dpl-navi-normal');
+                $('#hamburgerMenu').addClass('dpl-navi-active');
                 $('#gallery-wrapper').addClass('dpl-navi');
             } else {
+                $('#hamburgerMenu').removeClass('dpl-navi-active');
+                $('#hamburgerMenu').addClass('dpl-navi-normal');
                 $('#gallery-wrapper').removeClass('dpl-navi');
             }
         },
