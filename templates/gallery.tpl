@@ -19,7 +19,7 @@ REX_TEMPLATE[2]
             if (rex_addon::get('yrewrite')->isAvailable()) {
                 $fullSrc = "/imagetypes/" . $fragmentImgData['fullsrc'] . "/" . $fragmentImgData['gfx'];
             } else {
-                $fullSrc = "/index.php?rex_img_type=" . $fragmentImgData['fullsrc'] . "&rex_img_file=" . $fragmentImgData['gfx'];
+                $fullSrc = "/index.php?rex_media_type=" . $fragmentImgData['fullsrc'] . "&rex_media_file=" . $fragmentImgData['gfx'];
             }
         }
     ?>

@@ -86,9 +86,9 @@
                             $fullSrc = '/imagetypes/' . $gfxdata[$imageId]['fullsrc'] . '/' . $gfx;
                             $thumbSrc = '/imagetypes/' . $gfxdata[$imageId]['thumbsrc'] . '/' . $gfx;
                         } else {
-                            $lowSrc = '/index.php?rex_img_type=' . $gfxdata[$imageId]['lowsrc'] . '&rex_img_file=' . $gfx;
-                            $fullSrc = '/index.php?rex_img_type=' . $gfxdata[$imageId]['fullsrc'] . '&rex_img_file=' . $gfx;
-                            $thumbSrc = '/index.php?rex_img_type=' . $gfxdata[$imageId]['thumbsrc'] . '&rex_img_file=' . $gfx;
+                            $lowSrc = '/index.php?rex_media_type=' . $gfxdata[$imageId]['lowsrc'] . '&rex_media_file=' . $gfx;
+                            $fullSrc = '/index.php?rex_media_type=' . $gfxdata[$imageId]['fullsrc'] . '&rex_media_file=' . $gfx;
+                            $thumbSrc = '/index.php?rex_media_type=' . $gfxdata[$imageId]['thumbsrc'] . '&rex_media_file=' . $gfx;
                         }
                     ?>
                         <li>

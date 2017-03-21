@@ -14,7 +14,7 @@
         <h4>Artikelfoto: </h4>
         REX_MEDIA[id=1 widget=1]
         <?php if(REX_MEDIA[1]) { ?>
-            <p><img src="index.php?rex_img_type=wd300&rex_img_file=REX_MEDIA[1]"></p>
+            <p><img src="index.php?rex_media_type=wd300&rex_media_file=REX_MEDIA[1]"></p>
         <?php } ?>
     </div>
 
@@ -34,7 +34,7 @@
     </div>
 
     <div class="entry-wrapper">
-        <p><input type="checkbox" name="REX_INPUT_VALUE[5]" value="1" <?php if("REX_VALUE[5]" === "1") { ?>checked="checked"<?php } ?>>Bild weiss unterlegt</p>
+        <p><input type="checkbox" name="REX_INPUT_VALUE[5]" value="1" <?php if("REX_VALUE[5]" === "1") { ?>checked="checked"<?php } ?>> Bild weiss unterlegt</p>
     </div>
 
 <?php
