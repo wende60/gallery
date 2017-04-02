@@ -47,8 +47,10 @@
             info_url: false,
             ef: '!',
             hl: 2,
-            loader: '../gfx/loader.gif',
+            loader: '/gfx/loader.gif',
             resizerun: false,
+            isSmallDevice: false,
+            smallDeviceMax: 500,
             testing: false
         },
 
@@ -56,9 +58,9 @@
         map: {},
 
         init: function() {
-
-            this.config.touchme =  'ontouchstart' in window;
-            this.config.pointme =  window.navigator.msPointerEnabled? true : false;
+            this.config.touchme = 'ontouchstart' in window;
+            this.config.pointme = window.navigator.msPointerEnabled? true : false;
+            this.config.isSmallDevice = this.detectSmallDevice();
 
             this.init_thumbs();
             this.bind_view_events();
@@ -83,6 +85,18 @@
             }
         },
 
+        /**
+         * detect small viewport to load lowSrc images
+         * @author      kgde@wendenburg.de
+         * @return      {boolean}
+         */
+        detectSmallDevice: function() {
+            return (
+                $(window).width() < this.config.smallDeviceMax ||
+                $(window).height() < this.config.smallDeviceMax
+            ) ? true : false;
+        },
+
         hashchange: function() {
             var hash =  self.location.hash.substr(this.config.hl);
             if(hash && hash !== this.config.current) {
@@ -98,25 +112,25 @@
          * @return      {void}
          */
         init_thumbs: function() {
-
             var obj =  this;
             $('li', '.gallery-thumblist').each(function() {
-                var $this   =  $(this);
-                var $a      =  $('a:first', $this);
-                var $img    =  $('img:first', $this);
-                var href    =  $a.attr('href');
-                var src     =  $img.attr('src');
-                var view    =  $img.data('view');
-                var key     =  $img.data('key') || src.substr(kstart).replace('.jpg', '');
-                var kstart  =  (src.lastIndexOf('/') > 0)? src.lastIndexOf('/') +1 : 0;
-                var idx     =  obj.data.length;
+                var $this   = $(this);
+                var $a      = $('a:first', $this);
+                var $img    = $('img:first', $this);
+                var href    = $a.attr('href');
+                var src     = $img.attr('src');
+                var view    = obj.config.isSmallDevice ? $img.data('lowsrc') : $img.data('fullsrc');
+                var type    = $img.data('type');
+                var key     = $img.data('key') || src.substr(kstart).replace('.jpg', '');
+                var kstart  = (src.lastIndexOf('/') > 0)? src.lastIndexOf('/') +1 : 0;
+                var idx     = obj.data.length;
 
                 $a.data('key', key);
                 $a.data('idx', idx);
                 $a.bind('click', function(e){
                     e.preventDefault();
-                    obj.config.current =  $(this).data('key');
-                    self.location.hash =  obj.config.ef + $(this).data('key'); //escape fragments
+                    obj.config.current = $(this).data('key');
+                    self.location.hash = obj.config.ef + $(this).data('key'); //escape fragments
                     obj.dpl_view_image();
                 });
 
@@ -124,11 +138,12 @@
                     src: src,
                     href: href,
                     view: view,
+                    type: type,
                     key: key,
                     content: false
                 }
                 obj.data.push(tmp);
-                obj.map[key] =  idx;
+                obj.map[key] = idx;
             });
             // testout
             this.db('init_thumbs', this.data);
@@ -140,7 +155,6 @@
          * @return      {void}
          */
         bind_view_events: function() {
-
             var obj =  this;
 
             $('img', '#viewimage-wrapper-list').each(function() {
@@ -175,10 +189,9 @@
          * @author      kgde@wendenburg.de
          */
         handleEvent: function(e) {
-
-            var obj         =  this;
-            var target      =  e.target || e.srcElement;
-            var $img        =  $('img', '#viewimage-wrapper-list').get(1);
+            var obj     = this;
+            var target  = e.target || e.srcElement;
+            var $img    = $('img', '#viewimage-wrapper-list').get(1);
 
             if(target === $img) {
                 return obj.handle_viewimg(e);
@@ -189,24 +202,24 @@
             switch(e.type) {
                 case 'touchstart':
                     e.preventDefault();
-                    var touch                   =  e.touches[0] || e.changedTouches[0];
-                    this.config.pos.x.start     =  touch.pageX;
-                    this.config.pos.y.start     =  touch.pageY;
+                    var touch               = e.touches[0] || e.changedTouches[0];
+                    this.config.pos.x.start = touch.pageX;
+                    this.config.pos.y.start = touch.pageY;
                     this.reset_positions();
                     break;
                 case 'touchmove':
                     if(this.config.view_move) {
                         e.preventDefault();
-                        var touch   =  e.touches[0] || e.changedTouches[0];
-                        var xpos    =  touch.pageX;
-                        var ypos    =  touch.pageY;
+                        var touch   = e.touches[0] || e.changedTouches[0];
+                        var xpos    = touch.pageX;
+                        var ypos    = touch.pageY;
                         this.calculate_direction(xpos, ypos);
                     }
                     break;
                 case 'touchend':
                     if(this.config.view_move) {
                         e.preventDefault();
-                        this.config.view_move   =  false;
+                        this.config.view_move = false;
                         this.handle_move();
                     }
                     break;
@@ -217,15 +230,15 @@
                     } else {
                         e.returnValue = false;
                     }
-                    this.config.pos.x.start     =  e.clientX;
-                    this.config.pos.y.start     =  e.clientY;
+                    this.config.pos.x.start = e.clientX;
+                    this.config.pos.y.start = e.clientY;
                     this.reset_positions();
                     break;
                 case 'MSPointerMove':
                 case 'mousemove':
                     if(this.config.view_move) {
-                        var xpos =  e.clientX;
-                        var ypos =  e.clientY;
+                        var xpos = e.clientX;
+                        var ypos = e.clientY;
                         this.calculate_direction(xpos, ypos);
                     }
                     break;
@@ -233,7 +246,7 @@
                 case 'mouseup':
                 case 'mouseout':
                     if(this.config.view_move) {
-                        this.config.view_move   =  false;
+                        this.config.view_move = false;
                         this.handle_move();
                     }
                     break;
@@ -242,18 +255,18 @@
         },
 
         reset_positions: function() {
-            this.config.timer           =  new Date().getTime();
-            this.config.view_move       =  true;
-            this.config.pos.x.distance  =  0;
-            this.config.pos.y.distance  =  0;
-            this.config.wrapper_top     =  parseInt($('#gallery-wrapper').css('top'));
-            this.config.wrapper_left    =  parseInt($('#viewimage-wrapper-list').css('left'));
+            this.config.timer           = new Date().getTime();
+            this.config.view_move       = true;
+            this.config.pos.x.distance  = 0;
+            this.config.pos.y.distance  = 0;
+            this.config.wrapper_top     = parseInt($('#gallery-wrapper').css('top'));
+            this.config.wrapper_left    = parseInt($('#viewimage-wrapper-list').css('left'));
         },
 
         calculate_direction: function(xpos, ypos) {
-            this.config.pos.x.distance  =  xpos -this.config.pos.x.start;
-            this.config.pos.y.distance  =  ypos -this.config.pos.y.start;
-            this.config.direction       =  (Math.abs(this.config.pos.y.distance) > Math.abs(this.config.pos.x.distance))? 'v' : 'h';
+            this.config.pos.x.distance  = xpos -this.config.pos.x.start;
+            this.config.pos.y.distance  = ypos -this.config.pos.y.start;
+            this.config.direction       = (Math.abs(this.config.pos.y.distance) > Math.abs(this.config.pos.x.distance))? 'v' : 'h';
 
             if(this.config.direction === 'v') {
                 // move content with the mouse
@@ -331,7 +344,6 @@
          * @return  {void}
          */
         get_current_images: function(mod) {
-
             var obj =  this;
             var key =  self.location.hash.substr(this.config.hl) || this.config.current;
             var idx =  (typeof this.map[ key ] === "undefined")? 0 : this.map[ key ];
@@ -360,8 +372,6 @@
                     this.load($img0, img['prev']);
                     this.load($img2, img['next']);
             }
-
-
            this.load_content();
         },
 
@@ -374,20 +384,30 @@
          */
         load: function($img, idx) {
             $img.attr('src', this.config.loader);
-            $img.attr('src', this.data[ idx ].view).data('idx', idx).data('key', this.data[ idx ].key);
+            $img.attr('src', this.data[idx].view)
+                .attr('class', this.data[idx].type)
+                .data('idx', idx)
+                .data('key', this
+                .data[ idx ].key);
         },
 
         reset_current: function() {
             self.location.hash  = "";
             this.config.current =  false;
             $('#thumblist-wrapper').scrollTop(0);
+            // set viewimages src to loader when showing thumblist again
+            $('img', $('#viewimage-wrapper-list')).attr('src', this.config.loader);
         },
 
-        toggle_navi: function() {
+        toggle_navi: function(el) {
             this.config.dpl_navi =  arguments.length? arguments[0] : (this.config.dpl_navi? false : true);
             if(this.config.dpl_navi) {
+                $('#hamburgerMenu').removeClass('dpl-navi-normal');
+                $('#hamburgerMenu').addClass('dpl-navi-active');
                 $('#gallery-wrapper').addClass('dpl-navi');
             } else {
+                $('#hamburgerMenu').removeClass('dpl-navi-active');
+                $('#hamburgerMenu').addClass('dpl-navi-normal');
                 $('#gallery-wrapper').removeClass('dpl-navi');
             }
         },
@@ -406,7 +426,9 @@
         dpl_first_view: function() {
             var obj =  this;
             $('#viewimage-wrapper-list').animate({'left': 0}, this.config.anim_speed, function(){
-                var $move_li =  $('li:last', '#viewimage-wrapper-list');
+                var $move_li    =  $('li:last', '#viewimage-wrapper-list');
+                // set image src to loader when moving li to new dom position
+                $('img:first', $move_li).attr('src', obj.config.loader);
                 $('#viewimage-wrapper-list').prepend( $move_li ).css('left', '-100%');
                 obj.set_current('next');
             });
@@ -420,6 +442,8 @@
             var obj =  this;
             $('#viewimage-wrapper-list').animate({'left': '-200%'}, this.config.anim_speed, function(){
                 var $move_li    =  $('li:first', '#viewimage-wrapper-list');
+                // set image src to loader when moving li to new dom position
+                $('img:first', $move_li).attr('src', obj.config.loader);
                 $('#viewimage-wrapper-list').append( $move_li ).css('left', '-100%');
                 obj.set_current('prev');
             });
@@ -517,7 +541,6 @@
         },
 
         db: function() {
-
             if(!this.config.testing) {
                 return false;
             }

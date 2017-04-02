@@ -1,0 +1,239 @@
+    /* ----------------------------------------
+        top bar hamburger menu
+    ---------------------------------------- */
+    .topbar {
+        background: $bgTopBar;
+        padding: 15px 0 20px 0;
+
+        @media #{$bp-small} {
+            padding: 15px 0 19px 0;
+        }
+
+        .hamburger-menu {
+            margin: 0 20px 0 20px;
+            display: inline-block;
+            width: 40px;
+            height: 35px;
+            vertical-align: middle;
+
+            @media #{$bp-small} {
+                margin: 0 10px 0 10px;
+                width: 34px;
+                height: 30px;
+            }
+
+
+            div {
+                height: 100%;
+                width: 100%;
+                cursor: pointer;
+                position: relative;
+
+                span {
+                    @include vendor(box-sizing, border-box);
+                    position: absolute;
+                    width: 100%;
+                    height: 100%;
+                    border-top: 5px solid #fff;
+
+                    &.hamburgerTop {
+                        top: 0;
+                    }
+                    &.hamburgerMed {
+                        top: 50%;
+                    }
+                    &.hamburgerBot {
+                        top: 100%;
+                    }
+
+                    @media #{$bp-small} {
+                        border-top: 4px solid #fff;
+                    }
+                }
+            }
+
+            &.dpl-navi-active {
+                div span {
+                    &.hamburgerTop {
+                        top: 0;
+                        left: 0;
+                        transform: rotate(0);
+
+                        animation-name: hamburgerMenuTop;
+                        animation-duration: 0.5s;
+                        animation-fill-mode: forwards;
+                        animation-delay: 0.5s;
+                    }
+                    &.hamburgerMed {
+                        top: 50%;
+                        left: 0;
+                        transform: rotate(0);
+
+                        animation-name: hamburgerMenuMed;
+                        animation-duration: 0.5s;
+                        animation-fill-mode: forwards;
+                        animation-delay: 0.5s;
+                    }
+                    &.hamburgerBot {
+                        top: 100%;
+                        left: 0;
+                        transform: rotate(0);
+
+                        animation-name: hamburgerMenuBot;
+                        animation-duration: 0.5s;
+                        animation-fill-mode: forwards;
+                        animation-delay: 0.5s;
+                    }
+                }
+            }
+
+            &.dpl-navi-normal {
+                div span {
+                    &.hamburgerTop {
+                        top: 25%;
+                        left: -25%;
+                        transform: rotate(45deg);
+
+                        animation-name: hamburgerMenuTopRev;
+                        animation-duration: 0.5s;
+                        animation-fill-mode: forwards;
+                        animation-delay: 0.5s;
+                    }
+                    &.hamburgerMed {
+                        top: 25%;
+                        left: -25%;
+                        transform: rotate(45deg);
+
+                        animation-name: hamburgerMenuMedRev;
+                        animation-duration: 0.5s;
+                        animation-fill-mode: forwards;
+                        animation-delay: 0.5s;
+                    }
+                    &.hamburgerBot {
+                        top: 25%;
+                        left: 25%;
+                        transform: rotate(-45deg);
+
+                        animation-name: hamburgerMenuBotRev;
+                        animation-duration: 0.5s;
+                        animation-fill-mode: forwards;
+                        animation-delay: 0.5s;
+                    }
+                }
+            }
+        }
+
+        .topbar-text {
+            display: inline-block;
+            vertical-align: middle;
+            color: $font-invert;
+            font-weight: lighter;
+            letter-spacing: 10px;
+            text-transform: uppercase;
+            text-decoration: none;
+            font-size: 11px;
+            opacity: 0.3;
+
+            @media #{$bp-small} {
+                letter-spacing: 8px;
+            }
+        }
+    }
+
+    @keyframes hamburgerMenuTop {
+        0%   {top: 0;   left: 0;    transform: rotate(0deg)}
+        50%  {top: 50%; left: 0;    transform: rotate(0deg)}
+        100% {top: 25%; left: -25%; transform: rotate(45deg)}
+    }
+
+    @keyframes hamburgerMenuMed {
+        0%   {top: 50%; left: 0;    transform: rotate(0deg)}
+        50%  {top: 50%; left: 0;    transform: rotate(0deg)}
+        100% {top: 25%; left: -25%; transform: rotate(45deg)}
+    }
+
+    @keyframes hamburgerMenuBot {
+        0%   {top: 100%;    left: 0;   transform: rotate(0deg)}
+        50%  {top: 50%;     left: 0;   transform: rotate(0deg)}
+        100% {top: 25%;     left: 25%; transform: rotate(-45deg)}
+    }
+
+    @keyframes hamburgerMenuTopRev {
+        100% {top: 0;   left: 0;    transform: rotate(0deg)}
+        50%  {top: 50%; left: 0;    transform: rotate(0deg)}
+        0%   {top: 25%; left: -25%; transform: rotate(45deg)}
+    }
+
+    @keyframes hamburgerMenuMedRev {
+        100% {top: 50%; left: 0;    transform: rotate(0deg)}
+        50%  {top: 50%; left: 0;    transform: rotate(0deg)}
+        0%   {top: 25%; left: -25%; transform: rotate(45deg)}
+    }
+
+    @keyframes hamburgerMenuBotRev {
+        100% {top: 100%;    left: 0;   transform: rotate(0deg)}
+        50%  {top: 50%;     left: 0;   transform: rotate(0deg)}
+        0%   {top: 25%;     left: 25%; transform: rotate(-45deg)}
+    }
+
+    /* ----------------------------------------
+        navi items
+    ---------------------------------------- */
+    #navi-wrapper {
+        width: 300px;
+        height: 100%;
+        position: absolute;
+        left: -300px;
+        top: 0;
+        overflow: auto;
+        background: $colorlight;
+        color: $font-dark;
+
+        ul, li {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        a {
+            color: $font-dark;
+            text-decoration: none;
+            text-transform: uppercase;
+            @media #{$bp-small} {
+                font-size: 13px;
+            }
+        }
+
+        @media #{$bp-small} {
+            width: 70%;
+            left: -70%;
+        }
+
+        .navi-list-wrapper {
+            padding: 6%;
+        }
+
+        .navi-list-wrapper > ul > li {
+            padding: 10px 0 10px 0;
+            border-bottom: 1px solid $lightgray;
+        }
+
+        .navi-list-wrapper > ul > li.navi-gallery {
+            padding-left: 25px;
+            background: transparent url(../gfx/gallery.png) no-repeat left 50%;
+            border-bottom: 1px solid $lightgray;
+        }
+
+        .navi-list-wrapper > ul > li.navi-top-sel a {
+            color: $font-red;
+        }
+    }
+
+    /* must fit with navi item's size */
+    #gallery-wrapper.dpl-navi {
+        left: 300px;
+
+        @media #{$bp-small} {
+            left: 70%;
+        }
+    }

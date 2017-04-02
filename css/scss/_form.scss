@@ -1,0 +1,94 @@
+
+    /* -------------------------------------------------
+        mail
+    ------------------------------------------------- */
+    .gallery-contactform {
+
+        margin: 10px 0 10px 0;
+
+        .customer {
+            display: none;
+        }
+
+        p {
+            clear: both;
+            overflow: hidden;
+            padding: 0 0 10px 0;
+        }
+
+        p label {
+            float: left;
+            width: 30%;
+            padding: 3px;
+            text-align: right;
+            @media #{$bp-small} {
+                float: none;
+                width: auto;
+                display: block;
+                text-align: left;
+            }
+        }
+
+        p input {
+            float: right;
+            width: 50%;
+            margin: 0 16% 0 0;
+            border: 1px solid $darkgray;
+            padding: 3px;
+            font-size: 14px;
+            @include vendor(box-sizing, border-box);
+            @media #{$bp-med} {
+                margin: 0;
+                width: 66%;
+            }
+            @media #{$bp-small} {
+                float: none;
+                width: 100%;
+            }
+        }
+
+        p textarea {
+            float: right;
+            width: 50%;
+            margin: 0 16% 0 0;
+            height: 120px;
+            border: 1px solid $darkgray;
+            padding: 3px;
+            font-size: 14px;
+            @include vendor(box-sizing, border-box);
+            @media #{$bp-med} {
+                margin: 0;
+                width: 66%;
+            }
+            @media #{$bp-small} {
+                float: none;
+                width: 100%;
+            }
+        }
+
+        p input.sender {
+            padding: 5px 15px 5px 15px;
+            margin: 20px 16% 20px 0;
+            width: auto;
+            height: auto;
+            border: 1px solid $colorlight;
+            background: $font-red;
+            color: $font-invert;
+            font-weight: bold;
+            @media #{$bp-med} {
+                margin: 20px 0 20px 0;
+            }
+        }
+
+        p input.sender:hover {
+            background: $font-dark;
+        }
+
+        .message,
+        .error {
+            background: $msg-yellow;
+            padding: 10px;
+            color: $font-dark;
+            margin: 0 0 20px 0;
+        }
+    }

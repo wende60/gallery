@@ -1,147 +1,146 @@
 
 <!-- //////////// in ////////////////// -->
 
-    <?php
-        /**
-         * module gallery schwarz-weiss.net
-         * @author: jw
-         *
-         * in     
-         */ 
-    ?>
-    <h4>Bitte Bilder auswählen</h4>
-    <div class="entry-wrapper">
-        <p>REX_MEDIALIST_BUTTON[1]</p>
-    </div>
+<?php
+    /**
+     * module gallery schwarz-weiss.net
+     * @author: jw
+     *
+     */
+?>
+<div class="entry-wrapper">
+    <h4>Bitte Bilder auswählen:</h4>
+    REX_MEDIALIST[id=1 widget=1]
+</div>
 
     <div class="entry-wrapper">
-        <p><input type="checkbox" name="VALUE[2]" value="1" <?php if("REX_VALUE[2]" === "1"): ?>checked="checked"<?php endif ?>> Neuer Abschnitt</p> 
-        <p><input type="checkbox" name="VALUE[3]" value="1" <?php if("REX_VALUE[3]" === "1"): ?>checked="checked"<?php endif ?>> Neuer Abschnitt (light gray)</p> 
-    </div> 
+        <p><input type="checkbox" name="REX_INPUT_VALUE[2]" value="1" <?php if("REX_VALUE[2]" === "1") { ?>checked="checked"<?php } ?>> Neuer Abschnitt</p>
+        <p><input type="checkbox" name="REX_INPUT_VALUE[3]" value="1" <?php if("REX_VALUE[3]" === "1") { ?>checked="checked"<?php } ?>> Neuer Abschnitt (light gray)</p>
+    </div>
 
 
 <!-- //////////// out ///////////////// -->
 
 
-    <?php
+<?php
+    # attention
+    # this uses additional meta entries
+    # you can add these entries here:
+    #   > AddOns > Meta Infos > Media
+    # entries in use:
+    # med_title_[language_id]
+    # med_descripton_[language_id]
+    #
+    # will we start a new division
+    #
+    if(REX_VALUE[2] || REX_VALUE[3]) {
+        $add_class =  "";
+        if(REX_VALUE[3]) {
+            $add_class =  "gallery-division-gray";
+        } ?>
 
-        # attention 
-        # this uses additional meta entries
-        # you can add these entries here: 
-        #   > AddOns > Meta Infos > Media
-        # entries in use:
-        # med_title_[language_id]
-        # med_descripton_[language_id]
-        #  
-        
-        # will we start a new division?   
-        if(REX_IS_VALUE[2]) {
-    ?>
+            </div>
         </div>
-    </div>
-    <div class="gallery-division">
-        <div class="gallery-inner">
-    <?php
-        };
-        
-        # will we start a new gray division
-        if(REX_IS_VALUE[3]) {
-    ?>
-        </div>
-    </div>
-    <div class="gallery-division gallery-division-gray">
-        <div class="gallery-inner">
-    <?php
-        }; 
-        
-        
-        # get list of images
-        $gfx_string = "REX_MEDIALIST[1]";
-            if($gfx_string != ''):
-    ?> 
+        <div class="gallery-division <?php echo $add_class ?>">
+            <div class="gallery-inner">
 
-        <div class="gallery-thumblist-wrapper"> 
-            <ul class="gallery-thumblist"> 
+        <?php
+    } #REX_VALUE[2] || REX_VALUE[3]
+
+    # get list of images
+    if ('REX_MEDIALIST[1]' !== '') {
+
+    ?>
+
+        <div class="gallery-thumblist-wrapper">
+            <ul class="gallery-thumblist">
                 <?php
-                    $gfxlist =  explode(',',$gfx_string);             
-                
-                    foreach ($gfxlist as $gfx) { 
-                
+                    $gfxlist = explode(',',REX_MEDIALIST[1]);
+                    foreach ($gfxlist as $gfx) {
+                        $mediaData = rex_media::get($gfx);
+
                         # create key from image's name
-                        $key =  substr($gfx, 0, strpos($gfx, '.'));
-                
-                        if ($file = OOMedia::getMediaByFileName($gfx)) {
+                        $imageId =  substr($gfx, 0, strpos($gfx, '.'));
+                        $gfxdata[$imageId] =  Array(
+                            'title' => $mediaData->getValue('med_title_' . 'REX_CLANG_ID'),
+                            'desc' => $mediaData->getValue("med_description_" . 'REX_CLANG_ID'),
+                            'copy' => $mediaData->getValue("med_copyright"),
+                            'loc' => $mediaData->getValue("med_location"),
+                            'wd' => $mediaData->getValue("width"),
+                            'ht' => $mediaData->getValue("height"),
+                            'gfx' => $gfx,
+                            'type' => $mediaData->getValue("width") > $mediaData->getValue("height") ? 'landscape' : 'portrait',
+                        );
 
-                            $gfxdata[$key] =  Array(
-                                'title' => $file->getValue("med_title_" . $REX["CUR_CLANG"]),
-                                'desc'  => $file->getValue("med_description_" . $REX["CUR_CLANG"]),
-                                'copy'  => $file->getValue("med_copyright"),
-                                'loc'   => $file->getValue("med_location"),
-                                'wd'    => $file->getValue("width"),
-                                'ht'    => $file->getValue("height"),
-                                'gfx'   => $gfx,
-                            );
-        
-                            if ($gfxdata[$key]['ht'] > $gfxdata[$key]['wd']) {
-                                $gfxdata[$key]['thumb'] =  'ht_150';
-                                $gfxdata[$key]['view']  =  'ht_1000';
-                            } else {
-                                $gfxdata[$key]['thumb'] =  'wd_150';
-                                $gfxdata[$key]['view']  =  'wd_1000';                        
-                            }
-                            
-                            if(OOAddon::isAvailable('seo42')) {
-                                $view_url   =  "/imagetypes/" . $gfxdata[$key]['view'] . "/" . $gfx;
-                                $thumb_url  =  "/imagetypes/" . $gfxdata[$key]['thumb'] . "/" . $gfx;
-                            } else {
-                                $view_url   =  "/index.php?rex_img_type=" . $gfxdata[$key]['view'] . "&rex_img_file=" . $gfx;
-                                $thumb_url  =  "/index.php?rex_img_type=" . $gfxdata[$key]['thumb'] . "&rex_img_file=" . $gfx;
-                            }
-                    
-                ?> 
-                     <li>
-                        <div><a rel="<?php echo $view_url ?>" href="<?php echo $_SERVER['REQUEST_URI'] ?>#!<?php echo $key ?>"><span></span><img data-key="<?php echo $key ?>" data-view="<?php echo $view_url ?>" src="<?php echo $thumb_url ?>" alt="<?php echo addslashes($gfxdata[$key]['title']) ?>"></a></div>
-                        <div class="gallery-image-description" id="info-<?php echo $key ?>">
-                            <h2><?php echo $gfxdata[$key]['title'] ?></h2>
-                            <p>
-                                <?php 
-                                    if(trim($gfxdata[$key]['desc']) !== '') { 
-                                        $txt =  preg_replace("#\r#", "", $gfxdata[$key]['desc']); 
-                                        echo preg_replace("#\n\s*\n\s*#","</p><p>", $txt); 
-                                    } else {
-                                ?>
-                                    Für das Bild <?php echo $key ?> ist keine Beschreibung vorhanden!
-                                <?php
-                                    }
-                                ?>
-                            </p>                        
-                        </div>  
-                        <script type="application/ld+json">
-                        {
-                            "@context": "http://schema.org",
-                            "@type": "ImageObject",
-                            "author": "Joachim Wendenburg",
-                            "contentUrl": "<?php echo $view_url ?>",
-                            "description": "<?php echo addslashes($gfxdata[$key]['desc']) ?>",
-                            <?php if($gfxdata[$key]['loc']) { ?>"contentLocation": "<?php echo $gfxdata[$key]['loc'] ?>",<?php echo "\n"; } ?>
-                            "name": "<?php echo addslashes($gfxdata[$key]['title']) ?>"    
+                        if ($gfxdata[$imageId]['ht'] > $gfxdata[$imageId]['wd']) {
+                            $gfxdata[$imageId]['thumbsrc'] = 'ht_150';
+                            $gfxdata[$imageId]['lowsrc'] = 'ht_1000';
+                            $gfxdata[$imageId]['fullsrc'] = 'ht_2000';
+                        } else {
+                            $gfxdata[$imageId]['thumbsrc'] = 'wd_150';
+                            $gfxdata[$imageId]['lowsrc'] = 'wd_1000';
+                            $gfxdata[$imageId]['fullsrc'] = 'wd_2000';
                         }
-                        </script>                         
-                    </li>  
-                <?php
-                        }
-                    } 
-                    # endforeach gfxlist
 
-                    # we need this data later again 
+                        if (rex_addon::get('yrewrite')->isAvailable()) {
+                            $lowSrc = '/imagetypes/' . $gfxdata[$imageId]['lowsrc'] . '/' . $gfx;
+                            $fullSrc = '/imagetypes/' . $gfxdata[$imageId]['fullsrc'] . '/' . $gfx;
+                            $thumbSrc = '/imagetypes/' . $gfxdata[$imageId]['thumbsrc'] . '/' . $gfx;
+                        } else {
+                            $lowSrc = '/index.php?rex_media_type=' . $gfxdata[$imageId]['lowsrc'] . '&rex_media_file=' . $gfx;
+                            $fullSrc = '/index.php?rex_media_type=' . $gfxdata[$imageId]['fullsrc'] . '&rex_media_file=' . $gfx;
+                            $thumbSrc = '/index.php?rex_media_type=' . $gfxdata[$imageId]['thumbsrc'] . '&rex_media_file=' . $gfx;
+                        }
+                    ?>
+                        <li>
+                            <div><a
+                                rel="<?php echo $fullSrc ?>"
+                                href="<?php echo rex_getUrl(REX_CATEGORY_ID, REX_CLANG_ID) ?>#!<?php echo $imageId ?>"
+                                ><span></span><img
+                                    data-key="<?php echo $imageId ?>"
+                                    data-lowsrc="<?php echo $lowSrc ?>"
+                                    data-fullsrc="<?php echo $fullSrc ?>"
+                                    data-type="<?php echo $gfxdata[$imageId]['type'] ?>"
+                                    src="<?php echo $thumbSrc ?>"
+                                    alt="<?php echo addslashes($gfxdata[$imageId]['title']) ?>"></a></div>
+                            <div class="gallery-image-description" id="info-<?php echo $imageId ?>">
+                                <h2><?php echo $gfxdata[$imageId]['title'] ?></h2>
+                                <p>
+                                    <?php
+                                        if(trim($gfxdata[$imageId]['desc']) !== '') {
+                                            $txt =  preg_replace("#\r#", "", $gfxdata[$imageId]['desc']);
+                                            echo preg_replace("#\n\s*\n\s*#","</p><p>", $txt);
+                                        } else {
+                                    ?>
+                                        Für das Bild <?php echo $imageId ?> ist keine Beschreibung vorhanden!
+                                    <?php } ?>
+                                </p>
+                            </div>
+                            <script type="application/ld+json">
+                            {
+                                "@context": "http://schema.org",
+                                "@type": "ImageObject",
+                                "author": "<?php echo addslashes($gfxdata[$imageId]['copy']) ?>",
+                                "contentUrl": "<?php echo $fullSrc ?>",
+                                "description": "<?php echo addslashes($gfxdata[$imageId]['desc']) ?>",
+                                <?php if($gfxdata[$imageId]['loc']) { ?>"contentLocation": "<?php echo $gfxdata[$imageId]['loc'] ?>",<?php echo "\n"; } ?>
+                                "name": "<?php echo addslashes($gfxdata[$imageId]['title']) ?>"
+                            }
+                            </script>
+                        </li>
+                    <?php } # endforeach gfxlist
+
+                    # we need this data later again
                     # since vars are valid within module only
-                    # save collected gfxdata as a GLOBAL var
+                    # save collected gfxdata in rex
                     #
-                    if(!isset($GLOBALS['gfxdata'])) {
-                        $GLOBALS['gfxdata'] =  Array();
-                    }
-                    $GLOBALS['gfxdata'] =  array_merge($GLOBALS['gfxdata'], $gfxdata);
+                    $globalGfxData = (null !== rex::getProperty('gfxdata')) ? rex::getProperty('gfxdata') : Array();
+                    $globalGfxData = array_merge($globalGfxData, $gfxdata);
+
+                    rex::setProperty('gfxdata', $globalGfxData);
                 ?>
             </ul>
         </div>
-    <?php endif ?>
+
+    <?php } #$gfx_string
+?>

@@ -1,0 +1,85 @@
+    /* ----------------------------------------
+        modules
+    ---------------------------------------- */
+    .content-text-image {
+        @include clearafter();
+        margin: 10px 0 10px 0;
+
+        .image-wrapper {
+            float: left;
+            width: 30%;
+            text-align: center;
+            @media #{$bp-small} {
+                float: none;
+                width: 100%;
+                padding: 0 0 10px 0;
+                margin: 0 0 10px 0;
+            }
+        }
+
+        .image-wrapper-light {
+            padding: 3% 0 3% 0;
+            background: $colorlight;
+            @media #{$bp-small} {
+                margin: 0 0 20px 0;
+            }
+        }
+
+        .image-wrapper img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .image-wrapper p {
+            font-size: 12px;
+            font-style: italic;
+        }
+
+        .text-wrapper {
+            float: right;
+            width: 66%;
+            @media #{$bp-small} {
+                float: none;
+                width: 100%;
+                padding: 0 0 10px 0;
+            }
+        }
+
+        .text-wrapper :first-child {
+            padding-top: 0;
+            margin-top: 0;
+        }
+
+        ul {
+            padding: 0  0 15px 20px;
+        }
+
+        ul ul {
+            padding: 5px 0 5px 20px !important;
+        }
+
+        li {
+            padding: 0 0 5px 0;
+        }
+    }
+
+    .content-text {
+        margin: 10px 0 10px 0;
+        :first-child {
+            padding-top: 0;
+            margin-top: 0;
+        }
+
+        ul {
+            padding: 0  0 15px 20px;
+        }
+
+        ul ul {
+            padding: 5px 0 5px 20px !important;
+        }
+
+        li {
+            padding: 0 0 5px 0;
+        }
+    }
+
