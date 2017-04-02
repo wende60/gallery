@@ -97,16 +97,6 @@
         }
     }
 
-    /* must fit with navi item's size */
-    #gallery-wrapper.dpl-navi {
-        left: 300px;
-
-        @media #{$bp-small} {
-            left: 50%;
-        }
-    }
-
-
     /* ----------------------------------------
         footer
     ---------------------------------------- */

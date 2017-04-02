@@ -76,7 +76,7 @@
                         $imageType = "wd300";
 
                         if (rex_addon::get('yrewrite')->isAvailable()) {
-                            $imageSrc =  '/imagetypes/' . imageType . '/REX_MEDIA[1]';
+                            $imageSrc =  '/imagetypes/' . $imageType . '/REX_MEDIA[1]';
                         } else {
                             $imageSrc = 'index.php?rex_media_type=' . $imageType . '&rex_media_file=' . 'REX_MEDIA[1]';
                         }

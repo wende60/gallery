@@ -7,5 +7,8 @@
             <span class="hamburgerBot"></span>
         </div>
     </div>
-    <div class="topbar-text">schwarz-weiss.net</div>
+    <?php
+        $startUrl = rex_category::get(1)->getUrl();
+    ?>
+    <a href="<?php echo $startUrl ?>" class="topbar-text">schwarz-weiss.net</a>
 </div>

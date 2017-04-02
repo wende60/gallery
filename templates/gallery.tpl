@@ -55,7 +55,7 @@ REX_TEMPLATE[2]
             <li>
                 <span></span>
                 <?php if ($fragmentImgData) { ?>
-                    <img id="gallery-view-img-2" alt="<?php echo addslashes($fragmentImgData['title']) ?>" src="<?php echo $fullSrc ?>">
+                    <img id="gallery-view-img-2" alt="<?php echo addslashes($fragmentImgData['title']) ?>" class="<?php echo $fragmentImgData['type'] ?>" src="<?php echo $fullSrc ?>">
                     <script type="application/ld+json">
                     {
                         "@context": "http://schema.org",

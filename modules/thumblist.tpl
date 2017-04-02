@@ -69,6 +69,7 @@
                             'wd' => $mediaData->getValue("width"),
                             'ht' => $mediaData->getValue("height"),
                             'gfx' => $gfx,
+                            'type' => $mediaData->getValue("width") > $mediaData->getValue("height") ? 'landscape' : 'portrait',
                         );
 
                         if ($gfxdata[$imageId]['ht'] > $gfxdata[$imageId]['wd']) {
@@ -99,6 +100,7 @@
                                     data-key="<?php echo $imageId ?>"
                                     data-lowsrc="<?php echo $lowSrc ?>"
                                     data-fullsrc="<?php echo $fullSrc ?>"
+                                    data-type="<?php echo $gfxdata[$imageId]['type'] ?>"
                                     src="<?php echo $thumbSrc ?>"
                                     alt="<?php echo addslashes($gfxdata[$imageId]['title']) ?>"></a></div>
                             <div class="gallery-image-description" id="info-<?php echo $imageId ?>">

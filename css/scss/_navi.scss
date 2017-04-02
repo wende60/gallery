@@ -5,6 +5,10 @@
         background: $bgTopBar;
         padding: 15px 0 20px 0;
 
+        @media #{$bp-small} {
+            padding: 15px 0 19px 0;
+        }
+
         .hamburger-menu {
             margin: 0 20px 0 20px;
             display: inline-block;
@@ -14,6 +18,8 @@
 
             @media #{$bp-small} {
                 margin: 0 10px 0 10px;
+                width: 34px;
+                height: 30px;
             }
 
 
@@ -39,6 +45,10 @@
                     &.hamburgerBot {
                         top: 100%;
                     }
+
+                    @media #{$bp-small} {
+                        border-top: 4px solid #fff;
+                    }
                 }
             }
 
@@ -50,7 +60,7 @@
                         transform: rotate(0);
 
                         animation-name: hamburgerMenuTop;
-                        animation-duration: 1s;
+                        animation-duration: 0.5s;
                         animation-fill-mode: forwards;
                         animation-delay: 0.5s;
                     }
@@ -60,7 +70,7 @@
                         transform: rotate(0);
 
                         animation-name: hamburgerMenuMed;
-                        animation-duration: 1s;
+                        animation-duration: 0.5s;
                         animation-fill-mode: forwards;
                         animation-delay: 0.5s;
                     }
@@ -70,7 +80,7 @@
                         transform: rotate(0);
 
                         animation-name: hamburgerMenuBot;
-                        animation-duration: 1s;
+                        animation-duration: 0.5s;
                         animation-fill-mode: forwards;
                         animation-delay: 0.5s;
                     }
@@ -85,7 +95,7 @@
                         transform: rotate(45deg);
 
                         animation-name: hamburgerMenuTopRev;
-                        animation-duration: 1s;
+                        animation-duration: 0.5s;
                         animation-fill-mode: forwards;
                         animation-delay: 0.5s;
                     }
@@ -95,7 +105,7 @@
                         transform: rotate(45deg);
 
                         animation-name: hamburgerMenuMedRev;
-                        animation-duration: 1s;
+                        animation-duration: 0.5s;
                         animation-fill-mode: forwards;
                         animation-delay: 0.5s;
                     }
@@ -105,7 +115,7 @@
                         transform: rotate(-45deg);
 
                         animation-name: hamburgerMenuBotRev;
-                        animation-duration: 1s;
+                        animation-duration: 0.5s;
                         animation-fill-mode: forwards;
                         animation-delay: 0.5s;
                     }
@@ -120,6 +130,7 @@
             font-weight: lighter;
             letter-spacing: 10px;
             text-transform: uppercase;
+            text-decoration: none;
             font-size: 11px;
             opacity: 0.3;
 
@@ -188,11 +199,14 @@
             color: $font-dark;
             text-decoration: none;
             text-transform: uppercase;
+            @media #{$bp-small} {
+                font-size: 13px;
+            }
         }
 
         @media #{$bp-small} {
-            width: 50%;
-            left: -50%;
+            width: 70%;
+            left: -70%;
         }
 
         .navi-list-wrapper {
@@ -212,5 +226,14 @@
 
         .navi-list-wrapper > ul > li.navi-top-sel a {
             color: $font-red;
+        }
+    }
+
+    /* must fit with navi item's size */
+    #gallery-wrapper.dpl-navi {
+        left: 300px;
+
+        @media #{$bp-small} {
+            left: 70%;
         }
     }
