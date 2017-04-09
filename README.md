@@ -3,7 +3,7 @@
 all templates, modules, scripts and css-files for gallery http://www.schwarz-weiss.net/ by Joachim Wendenburg, Munich, Germany
 based on CMS Redaxo, http://www.redaxo.org/
 
-*This repository does nor work out of the box. It is thought to give you some inspiration. If you want touse it you have to do some configurations!*
+**This repository does nor work out of the box. It is thought to give you some inspiration. If you want touse it you have to do some configurations!**
 
 * install redaxo 5x
 * install the markitup plugin
@@ -16,15 +16,15 @@ Footer is an offline Article using the footer_columns.tpl with 2 columns.
 
 Here's my setup:
 
-|1   |config| |
-|2   |document header| |
-|3   |document footer| |
-|4   |main navigation| |
-|9   |topbar| |
-|5   |default template| selectable |
-|6   |gallery template| selectable |
-|7   |footer columns| selectable (footer article only) |
-|8   |footer content| |
+1   | config            | non selectable
+2   | document header   | non selectable
+3   | document footer   | non selectable
+4   | main navigation   | non selectable
+9   | topbar            | non selectable
+5   | default template  | selectable
+6   | gallery template  | selectable
+7   | footer columns    | selectable (footer article only)
+8   | footer content    | non selectable
 
 You have to create some meta fields. First a select for the categories, in order to display a icon if a category contains a gallery:
 
