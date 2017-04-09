@@ -25,7 +25,7 @@ ID  | name              | state             | description
 9   | topbar            | non selectable    | logo and hamburger menu bar
 5   | default           | selectable        | article templates includes 2, 3, 8, 9
 6   | gallery           | selectable        | gallery template includes 2, 3, 8, 9
-7   | footer_columns    | selectable        | template for footer article only
+7   | footer_columns    | selectable        | template for footer article only, 2 columns
 8   | footer_content    | non selectable    | footer content displays the footer article (should be offline)
 
 You have to create some meta fields. First a select for the categories, in order to display a icon if a category contains a gallery:
