@@ -51,6 +51,11 @@ For the images we need some media types
 * wd_150 thumbnail width 150px
 * wd_2000 image width 2000px
 
-Use the project plugin to make the php files in /php and the kgdeBackend in /css available.
+*At least: use the project plugin to make the php files in /php and the kgdeBackend in /css available.*
+
+Feel free to contact me if you end up in trouble or have some good hints :)
+
+
+
 
 
