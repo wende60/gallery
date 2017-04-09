@@ -16,6 +16,8 @@ Footer is an offline Article using the footer_columns.tpl with 2 columns.
 
 Here's my setup:
 
+ID  | name              | state
+--- | ----------------- | -------------
 1   | config            | non selectable
 2   | document header   | non selectable
 3   | document footer   | non selectable
