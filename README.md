@@ -16,21 +16,21 @@ Footer is an offline Article using the footer_columns.tpl with 2 columns.
 
 Here's my setup:
 
-ID  | name              | state
---- | ----------------- | -------------
-1   | config            | non selectable
-2   | document header   | non selectable
-3   | document footer   | non selectable
-4   | main navigation   | non selectable
-9   | topbar            | non selectable
-5   | default template  | selectable
-6   | gallery template  | selectable
-7   | footer columns    | selectable (footer article only)
-8   | footer content    | non selectable
+ID  | name              | state             | description
+--- | ----------------- | ----------------- | ------------
+1   | config            | non selectable    | some config (included in document_header)
+2   | document_header   | non selectable    | document header and navi
+3   | document_footer   | non selectable    | document footer (js-files)
+4   | navi              | non selectable    | navi (included in document_header)
+9   | topbar            | non selectable    | logo and hamburger menu bar
+5   | default           | selectable        | article templates includes 2, 3, 8, 9
+6   | gallery           | selectable        | gallery template includes 2, 3, 8, 9
+7   | footer_columns    | selectable        | template for footer article only
+8   | footer_content    | non selectable    | footer content displays the footer article (should be offline)
 
 You have to create some meta fields. First a select for the categories, in order to display a icon if a category contains a gallery:
 
-cat_is_gallery: navi-default:Default|navi-gallery:Galerie
+* cat_is_gallery: navi-default:Default|navi-gallery:Galerie
 
 Then for the media some inputs and textareas, here for the languages de and en:
 
