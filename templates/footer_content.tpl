@@ -5,7 +5,7 @@
                 <div class="footerLeft">
                     <?php
                         $footerContent = new rex_article_content;
-                        $footerContent->setArticleID(12);
+                        $footerContent->setArticleID($footerArticleId);
                         echo $footerContent->getArticle(1);
                     ?>
                 </div>
