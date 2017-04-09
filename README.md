@@ -3,7 +3,7 @@
 all templates, modules, scripts and css-files for gallery http://www.schwarz-weiss.net/ by Joachim Wendenburg, Munich, Germany
 based on CMS Redaxo, http://www.redaxo.org/
 
-**This repository does nor work out of the box. It is thought to give you some inspiration. If you want touse it you have to do some configurations!**
+**This repository does nor work out of the box. It is thought to give you some inspiration. If you want to use it you have to do some manual configurations!**
 
 * install redaxo 5x
 * install the markitup plugin
