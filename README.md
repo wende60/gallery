@@ -11,8 +11,8 @@ based on CMS Redaxo, http://www.redaxo.org/
 
 Using the templates you habe to modify the IDs of the included files depending on your setup.
 Look for "REX_TEMPLATE[...]" in default.tpl, gallery.tpl and document_header.tpl.
-Then edit the config.tpl. Replace the email and edit the $formmailerId. Also edit the footer's article ID in the footer_content.tpl.
-Footer is an offline Article using the footer_columns.tpl with 2 columns.
+Then edit the config.tpl. Replace the email and edit the $formmailerId and the $footerArticleId.
+$footerArticleId is for an offline article using the footer_columns.tpl with 2 columns.
 
 Here's my setup:
 
