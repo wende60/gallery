@@ -32,7 +32,7 @@ You have to create some meta fields. First a select for the categories, in order
 
 name            |  type    | content
 --------------- | -------- | ---------
-cat_is_gallery  | select   | navi-default:Default|navi-gallery:Galerie
+cat_is_gallery  | select   | navi-default:Default\|navi-gallery:Galerie
 
 Then for the media some inputs and textareas, here for the languages de and en:
 
