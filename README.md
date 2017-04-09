@@ -30,28 +30,34 @@ ID  | name              | state             | description
 
 You have to create some meta fields. First a select for the categories, in order to display a icon if a category contains a gallery:
 
-* cat_is_gallery: navi-default:Default|navi-gallery:Galerie
+name            |  type    | content
+--------------- | -------- | ---------
+cat_is_gallery  | select   | navi-default:Default|navi-gallery:Galerie
 
 Then for the media some inputs and textareas, here for the languages de and en:
 
-* med_title_1 input text title de
-* med_title_2  input text title en
-* med_description_1 textarea description de
-* med_description_2 textarea description en
-* med_location input
-* med_copyright input
+name                |  type         | description
+------------------- | ------------- | ---------
+med_title_1         | input text    | title de
+med_title_2         | input text    | title en
+med_description_1   | textarea      | description de
+med_description_2   | textarea      | description en
+med_location        | input text    | location for rich snippets
+med_copyright       | input text    | image author
 
 For the images we need some media types
 
-* ht_1000 image height 1000px
-* ht_150 thumbnail height 150px
-* ht_2000 image height 2000px
-* wd300 content image width 300px
-* wd_1000 image width 1000px
-* wd_150 thumbnail width 150px
-* wd_2000 image width 2000px
+name        | description
+----------- | ---------------------
+ht_1000     | image height 1000px
+ht_150      | thumbnail height 150px
+ht_2000     | image height 2000px
+wd300       | content image width 300px
+wd_1000     | image width 1000px
+wd_150      | thumbnail width 150px
+wd_2000     | image width 2000px
 
-*At least: use the project plugin to make the php files in /php and the kgdeBackend in /css available.*
+**At least: use the project plugin to make the php files in /php and the kgdeBackend in /css available.**
 
 Feel free to contact me if you end up in trouble or have some good hints :)
 
