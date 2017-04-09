@@ -7,6 +7,7 @@
      */
 
     $formmailerArticleId = 3;
+    $footerArticleId = 12;
 
     $languageId = REX_CLANG_ID;
     $articleId = REX_ARTICLE_ID;
