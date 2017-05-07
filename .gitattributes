@@ -1,1 +1,5 @@
- *.tpl linguist-language=Php
+*.tpl linguist-language=Php
+*.js linguist-language=Javascript
+*.scss linguist-language=Sass
+*.css linguist-language=Css
+*.php linguist-language=Php
