@@ -59,7 +59,7 @@
 
         init: function() {
             this.config.touchme = 'ontouchstart' in window;
-            this.config.pointme = window.navigator.msPointerEnabled? true : false;
+            this.config.pointme = (window.navigator.msPointerEnabled || window.PointerEvent) ? true : false;
             this.config.isSmallDevice = this.detectSmallDevice();
 
             this.init_thumbs();
