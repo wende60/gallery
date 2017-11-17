@@ -32,8 +32,6 @@
             },
             images: [],
             current: false,
-            touchme: false,
-            pointme: false,
             wrapper_top: 0,
             wrapper_left: 0,
             direction: false,
@@ -58,23 +56,10 @@
         map: {},
 
         init: function() {
-            this.config.touchme = 'ontouchstart' in window;
-            this.config.pointme = (window.navigator.msPointerEnabled || window.PointerEvent) ? true : false;
             this.config.isSmallDevice = this.detectSmallDevice();
-
             this.init_thumbs();
             this.bind_view_events();
             this.resizefix();
-
-            /* no dragging for windows mobile without these styles */
-            if(this.config.pointme) {
-                $('#viewimage-wrapper-list').css({
-                    '-ms-touch-action': 'none',
-                    '-ms-user-select': 'none',
-                    'touch-action': 'none',
-                    'user-select': 'none'
-                });
-            }
 
             if(self.location.hash) {
                 this.dpl_view_image();
@@ -158,23 +143,19 @@
             var obj =  this;
 
             $('img', '#viewimage-wrapper-list').each(function() {
-
-                // mobile events android, ios...
-                if(obj.config.touchme) {
-                    this.addEventListener('touchstart', obj, false);
-                    this.addEventListener('touchmove', obj, false);
-                    this.addEventListener('touchend', obj, false);
-                } else if(obj.config.pointme) {
-                    this.addEventListener('MSPointerDown', obj, false);
-                    this.addEventListener('MSPointerMove', obj, false);
-                    this.addEventListener('MSPointerUp', obj, false);
-                }
-
                 if(this.addEventListener) {
                     this.addEventListener('mousedown', obj, false);
                     this.addEventListener('mouseup', obj, false);
                     this.addEventListener('mousemove', obj, false);
                     this.addEventListener('mouseout', obj, false);
+
+                    this.addEventListener('touchstart', obj, false);
+                    this.addEventListener('touchmove', obj, false);
+                    this.addEventListener('touchend', obj, false);
+
+                    this.addEventListener('MSPointerDown', obj, false);
+                    this.addEventListener('MSPointerMove', obj, false);
+                    this.addEventListener('MSPointerUp', obj, false);
                 } else {
                     this.onmousedown    =  function(e){var ev = e || window.event; obj.handleEvent(ev)};
                     this.onmouseup      =  function(e){var ev = e || window.event; obj.handleEvent(ev)};
