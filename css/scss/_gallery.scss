@@ -100,6 +100,14 @@
         overflow: hidden;
         position: relative;
 
+        /* no dragging for windows touch without these styles */
+        * {
+            -ms-touch-action: none;
+            -ms-user-select: none;
+            touch-action: none;
+            user-select: none;
+        }
+
         ul {
             width: 300%;
             height: 100%;

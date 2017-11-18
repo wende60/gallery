@@ -59,22 +59,11 @@
 
         init: function() {
             this.config.touchme = 'ontouchstart' in window;
-            this.config.pointme = window.navigator.msPointerEnabled? true : false;
+            this.config.pointme = window.PointerEvent ? true : false;
             this.config.isSmallDevice = this.detectSmallDevice();
-
             this.init_thumbs();
             this.bind_view_events();
             this.resizefix();
-
-            /* no dragging for windows mobile without these styles */
-            if(this.config.pointme) {
-                $('#viewimage-wrapper-list').css({
-                    '-ms-touch-action': 'none',
-                    '-ms-user-select': 'none',
-                    'touch-action': 'none',
-                    'user-select': 'none'
-                });
-            }
 
             if(self.location.hash) {
                 this.dpl_view_image();
@@ -156,30 +145,21 @@
          */
         bind_view_events: function() {
             var obj =  this;
-
             $('img', '#viewimage-wrapper-list').each(function() {
-
-                // mobile events android, ios...
-                if(obj.config.touchme) {
+                if (obj.config.touchme) {
                     this.addEventListener('touchstart', obj, false);
                     this.addEventListener('touchmove', obj, false);
                     this.addEventListener('touchend', obj, false);
-                } else if(obj.config.pointme) {
-                    this.addEventListener('MSPointerDown', obj, false);
-                    this.addEventListener('MSPointerMove', obj, false);
-                    this.addEventListener('MSPointerUp', obj, false);
-                }
-
-                if(this.addEventListener) {
+                } else if (obj.config.pointme) {
+                    this.addEventListener('pointerdown', obj, false);
+                    this.addEventListener('pointermove', obj, false);
+                    this.addEventListener('pointerup', obj, false);
+                    this.addEventListener('pointerleave', obj, false);
+                } else {
                     this.addEventListener('mousedown', obj, false);
                     this.addEventListener('mouseup', obj, false);
                     this.addEventListener('mousemove', obj, false);
                     this.addEventListener('mouseout', obj, false);
-                } else {
-                    this.onmousedown    =  function(e){var ev = e || window.event; obj.handleEvent(ev)};
-                    this.onmouseup      =  function(e){var ev = e || window.event; obj.handleEvent(ev)};
-                    this.onmousemove    =  function(e){var ev = e || window.event; obj.handleEvent(ev)};
-                    this.onmouseout     =  function(e){var ev = e || window.event; obj.handleEvent(ev)};
                 }
             });
         },
@@ -202,15 +182,16 @@
             switch(e.type) {
                 case 'touchstart':
                     e.preventDefault();
-                    var touch               = e.touches[0] || e.changedTouches[0];
+                    var touch   = e.touches? e.touches[0] : e.changedTouches[0];
                     this.config.pos.x.start = touch.pageX;
                     this.config.pos.y.start = touch.pageY;
+
                     this.reset_positions();
                     break;
                 case 'touchmove':
                     if(this.config.view_move) {
                         e.preventDefault();
-                        var touch   = e.touches[0] || e.changedTouches[0];
+                        var touch   = e.touches? e.touches[0] : e.changedTouches[0];
                         var xpos    = touch.pageX;
                         var ypos    = touch.pageY;
                         this.calculate_direction(xpos, ypos);
@@ -223,18 +204,14 @@
                         this.handle_move();
                     }
                     break;
-                case 'MSPointerDown':
+                case 'pointerdown':
                 case 'mousedown':
-                    if(e.preventDefault) {
-                        e.preventDefault();
-                    } else {
-                        e.returnValue = false;
-                    }
+                    e.preventDefault();
                     this.config.pos.x.start = e.clientX;
                     this.config.pos.y.start = e.clientY;
                     this.reset_positions();
                     break;
-                case 'MSPointerMove':
+                case 'pointermove':
                 case 'mousemove':
                     if(this.config.view_move) {
                         var xpos = e.clientX;
@@ -242,7 +219,8 @@
                         this.calculate_direction(xpos, ypos);
                     }
                     break;
-                case 'MSPointerUp':
+                case 'pointerup':
+                case 'pointerleave':
                 case 'mouseup':
                 case 'mouseout':
                     if(this.config.view_move) {
